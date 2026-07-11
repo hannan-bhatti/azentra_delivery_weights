@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields # type: ignore
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
