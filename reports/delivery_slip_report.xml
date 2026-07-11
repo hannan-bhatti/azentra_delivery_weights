@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_delivery_document_inherit_azentra_weights" inherit_id="stock.report_delivery_document">
+        
+        <xpath expr="//table[@name='stock_move_table']/thead/tr/th[@name='th_sm_quantity']" position="before">
+            <th name="th_sm_gw" class="text-center"><strong>G.W</strong></th>
+            <th name="th_sm_nw" class="text-center"><strong>N.W</strong></th>
+        </xpath>
+
+        <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[@name='td_sm_quantity']" position="before">
+            <td class="text-center">
+                <span t-field="move.az_gross_weight"/>
+            </td>
+            <td class="text-center">
+                <span t-field="move.az_net_weight"/>
+            </td>
+        </xpath>
+        
+    </template>
+</odoo>
