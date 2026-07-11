@@ -3,15 +3,29 @@
     
     <template id="report_delivery_document_inherit_azentra_weights" inherit_id="stock.report_delivery_document">
         
+        <xpath expr="//table[@name='stock_move_table']" position="before">
+            <style>
+                table[name='stock_move_table'] th:not(:first-child), 
+                table[name='stock_move_table'] td:not(:first-child),
+                table[name='stock_move_line_table'] th:not(:first-child), 
+                table[name='stock_move_line_table'] td:not(:first-child) {
+                    text-align: center !important;
+                }
+            </style>
+        </xpath>
+        
         <xpath expr="//table[@name='stock_move_table']/thead/tr/th[last()]" position="replace">
             <th class="text-center"><strong>Gross weight</strong></th>
             <th class="text-center"><strong>Net weight</strong></th>
         </xpath>
 
+        <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[last()]" position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+
         <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[last()]" position="after">
             <td class="text-center">
-                <span t-out="move.az_net_weight"/>
-                <span t-out="move.product_uom.name"/>
+                <span t-out="move.az_net_weight"/>&#160;<span t-out="move.product_uom.name"/>
             </td>
         </xpath>
 
@@ -24,12 +38,14 @@
 
     <template id="stock_report_delivery_aggregated_move_lines_inherit_weights" inherit_id="stock.stock_report_delivery_aggregated_move_lines">
         
+        <xpath expr="//tr/td[last()]" position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+
         <xpath expr="//tr/td[last()]" position="after">
             <t t-set="az_move" t-value="o.move_ids.filtered(lambda m: m.product_id == aggregated_lines[line]['product'])[:1]"/>
-            
             <td class="text-center">
-                <span t-out="az_move.az_net_weight"/>
-                <span t-out="az_move.product_uom.name"/>
+                <span t-out="az_move.az_net_weight"/>&#160;<span t-out="az_move.product_uom.name"/>
             </td>
         </xpath>
         
