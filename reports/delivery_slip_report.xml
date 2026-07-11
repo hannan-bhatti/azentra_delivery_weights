@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_delivery_document_inherit_azentra_weights" inherit_id="stock.report_delivery_document">
-        
-        <xpath expr="//table//thead//tr//th[contains(string(), 'Quantity') or contains(string(), 'Ordered')]" position="before">
+        <xpath expr="//table[@name='stock_move_table']/thead/tr/th[last()]" position="after">
             <th class="text-center"><strong>G.W</strong></th>
             <th class="text-center"><strong>N.W</strong></th>
         </xpath>
+    </template>
 
-        <xpath expr="//table//tbody//tr//td[span[@t-field='move.quantity'] or span[@t-field='move.product_uom_qty']]" position="before">
+    <template id="stock_report_delivery_aggregated_move_lines_inherit_weights" inherit_id="stock.stock_report_delivery_aggregated_move_lines">
+        <xpath expr="//tr/td[last()]" position="after">
             <td class="text-center">
-                <span t-field="move.az_gross_weight"/>
+                <span t-out="line['move_line'].move_id.az_gross_weight" t-options='{"widget": "float", "precision": 2}'/>
             </td>
             <td class="text-center">
-                <span t-field="move.az_net_weight"/>
+                <span t-out="line['move_line'].move_id.az_net_weight" t-options='{"widget": "float", "precision": 2}'/>
             </td>
         </xpath>
-        
     </template>
 </odoo>
