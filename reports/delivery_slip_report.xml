@@ -3,17 +3,20 @@
     
     <template id="report_delivery_document_inherit_azentra_weights" inherit_id="stock.report_delivery_document">
         
-        <xpath expr="//table[@name='stock_move_table']/thead/tr/th[last()]" position="after">
+        <xpath expr="//table[@name='stock_move_table']/thead/tr/th[last()]" position="replace">
+            <th class="text-center"><strong>Gross weight</strong></th>
             <th class="text-center"><strong>Net weight</strong></th>
         </xpath>
 
         <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[last()]" position="after">
             <td class="text-center">
                 <span t-out="move.az_net_weight"/>
+                <span t-out="move.product_uom.name"/>
             </td>
         </xpath>
 
-        <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[last()]" position="after">
+        <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[last()]" position="replace">
+            <th class="text-center"><strong>Gross weight</strong></th>
             <th class="text-center"><strong>Net weight</strong></th>
         </xpath>
         
@@ -26,6 +29,7 @@
             
             <td class="text-center">
                 <span t-out="az_move.az_net_weight"/>
+                <span t-out="az_move.product_uom.name"/>
             </td>
         </xpath>
         
