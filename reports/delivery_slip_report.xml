@@ -1,20 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    
     <template id="report_delivery_document_inherit_azentra_weights" inherit_id="stock.report_delivery_document">
+        
         <xpath expr="//table[@name='stock_move_table']/thead/tr/th[last()]" position="after">
             <th class="text-center"><strong>G.W</strong></th>
             <th class="text-center"><strong>N.W</strong></th>
         </xpath>
+
+        <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[last()]" position="after">
+            <td class="text-center">
+                <span t-out="move.az_gross_weight"/>
+            </td>
+            <td class="text-center">
+                <span t-out="move.az_net_weight"/>
+            </td>
+        </xpath>
+
+        <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[last()]" position="after">
+            <th class="text-center"><strong>G.W</strong></th>
+            <th class="text-center"><strong>N.W</strong></th>
+        </xpath>
+        
     </template>
 
     <template id="stock_report_delivery_aggregated_move_lines_inherit_weights" inherit_id="stock.stock_report_delivery_aggregated_move_lines">
+        
         <xpath expr="//tr/td[last()]" position="after">
+            <t t-set="az_move" t-value="o.move_ids.filtered(lambda m: m.product_id == aggregated_lines[line]['product'])[:1]"/>
+            
             <td class="text-center">
-                <span t-out="line['move_line'].move_id.az_gross_weight" t-options='{"widget": "float", "precision": 2}'/>
+                <span t-out="az_move.az_gross_weight"/>
             </td>
             <td class="text-center">
-                <span t-out="line['move_line'].move_id.az_net_weight" t-options='{"widget": "float", "precision": 2}'/>
+                <span t-out="az_move.az_net_weight"/>
             </td>
         </xpath>
+        
     </template>
+    
 </odoo>
