@@ -10,8 +10,11 @@
                 <attribute name="column_invisible">True</attribute>
             </xpath>
 
+            <xpath expr="//field[@name='quantity']" position="attributes">
+                <attribute name="string">Gross weight</attribute>
+            </xpath>
+
             <xpath expr="//field[@name='quantity']" position="before">
-                <field name="az_gross_weight"/>
                 <field name="az_net_weight"/>
             </xpath>
             
