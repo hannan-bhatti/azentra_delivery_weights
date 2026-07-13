@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_inherit_azentra_weights" inherit_id="account.report_invoice_document">
+        
+        <xpath expr="//table[@name='invoice_line_table']" position="before">
+            <style>
+                table[name='invoice_line_table'] th:not(:first-child), 
+                table[name='invoice_line_table'] td:not(:first-child) {
+                    text-align: center !important;
+                    font-weight: normal !important;
+                }
+                table[name='invoice_line_table'] thead th {
+                    font-weight: 600 !important;
+                }
+            </style>
+        </xpath>
+
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='th_quantity']" position="replace">
+            <th class="text-center">Gross weight</th>
+            <th class="text-center">Net weight</th>
+        </xpath>
+
+        <xpath expr="//table[@name='invoice_line_table']/tbody//tr[@name='invoice_line_rec']/td[@name='td_quantity']" position="before">
+            <td class="text-center" style="font-weight: normal !important;">
+                <span t-out="line.az_net_weight"/>&#160;<span t-out="line.product_uom_id.name"/>
+            </td>
+        </xpath>
+
+    </template>
+</odoo>
