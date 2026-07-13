@@ -10,13 +10,19 @@
                 table[name='stock_move_line_table'] th:not(:first-child), 
                 table[name='stock_move_line_table'] td:not(:first-child) {
                     text-align: center !important;
+                    font-weight: normal !important;
+                }
+                /* Ensure table headers maintain a clean look without explicit bolding */
+                table[name='stock_move_table'] thead th,
+                table[name='stock_move_line_table'] thead th {
+                    font-weight: 600 !important;
                 }
             </style>
         </xpath>
         
         <xpath expr="//table[@name='stock_move_table']/thead/tr/th[last()]" position="replace">
-            <th class="text-center"><strong>Gross weight</strong></th>
-            <th class="text-center"><strong>Net weight</strong></th>
+            <th class="text-center">Gross weight</th>
+            <th class="text-center">Net weight</th>
         </xpath>
 
         <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[last()]" position="attributes">
@@ -24,14 +30,14 @@
         </xpath>
 
         <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[last()]" position="after">
-            <td class="text-center">
+            <td class="text-center" style="font-weight: normal !important;">
                 <span t-out="move.az_net_weight"/>&#160;<span t-out="move.product_uom.name"/>
             </td>
         </xpath>
 
         <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[last()]" position="replace">
-            <th class="text-center"><strong>Gross weight</strong></th>
-            <th class="text-center"><strong>Net weight</strong></th>
+            <th class="text-center">Gross weight</th>
+            <th class="text-center">Net weight</th>
         </xpath>
         
     </template>
@@ -44,7 +50,7 @@
 
         <xpath expr="//tr/td[last()]" position="after">
             <t t-set="az_move" t-value="o.move_ids.filtered(lambda m: m.product_id == aggregated_lines[line]['product'])[:1]"/>
-            <td class="text-center">
+            <td class="text-center" style="font-weight: normal !important;">
                 <span t-out="az_move.az_net_weight"/>&#160;<span t-out="az_move.product_uom.name"/>
             </td>
         </xpath>
